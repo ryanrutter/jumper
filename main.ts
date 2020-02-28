@@ -366,25 +366,6 @@ d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, false)
-    // rock
-    scene.setTile(7, img`
-f f f f f f f f f f f f f f f f 
-f f 2 2 2 2 2 2 2 f 2 2 2 2 f f 
-f 2 2 2 2 2 2 2 2 f 2 2 2 2 2 f 
-f 2 2 2 2 2 2 2 2 f 2 2 2 2 2 f 
-f 2 2 2 2 2 2 2 2 f 2 2 2 2 2 f 
-f f f f f f f f f f f f f f f f 
-f 2 2 2 2 f 2 2 2 2 2 2 2 2 2 f 
-f 2 2 2 2 f 2 2 2 2 4 4 2 2 2 f 
-f 2 2 2 2 f 2 2 2 4 4 2 2 2 2 f 
-f 2 2 2 2 f 2 2 2 2 2 2 2 2 2 f 
-f f f f f f f f f f f f f f f f 
-f 2 2 2 2 2 2 2 2 f 2 2 2 2 2 f 
-f 2 2 2 4 2 2 2 2 f 2 2 2 2 2 f 
-f 2 2 4 2 2 2 2 2 f 2 2 2 2 2 f 
-f f 2 2 2 2 2 2 2 f 2 2 2 2 f f 
-f f f f f f f f f f f f f f f f 
-`, true)
     // goal / flag spawn point
     scene.setTile(14, img`
 . . . . . . . . . . . . . . . . 
@@ -878,9 +859,9 @@ f f f . . f . . . . f f . f . . f 5 f f f f f . . 5 . . . . . .
 . 5 . . . . f . . f f . . . . f f f f f f . f . . . 5 . . . . . 
 f f f f . . f f 5 f . . 5 . 5 5 5 . . . . . f . . . . 5 5 . . . 
 5 5 5 5 . . . f f f . f f f f f f . . 5 . . f . . . . . e . . . 
-f f f f f . . . . . . f . . . . . . f f f . f . . . . . f . . . 
+f f f f f . . . . . . f . . . . . . f f f . f . . . . f f f . . 
 `, img`
-. 1 . . . . . . . . . . . . . . . . . . . . . . . . 5 f . . . 5 
+. 1 . . . . . . . . . . . . . . . . . . . . . . . . 5 . . . . 5 
 . . . . . . . . . . . . . . . . . . . . . . . . . 2 f f . . . f 
 . . . . . . . . . . . f f f f f . . . . . . . . 5 f f . . . . f 
 . . . . . . f f f f . f 5 5 5 5 2 . . . . . . . 2 f . . . . e f 
