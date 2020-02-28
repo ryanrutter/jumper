@@ -261,11 +261,6 @@ e 4 e f e f f f 5 d 5 d 5 5 5 5 5 d 4 e . . . . . . . . . . . .
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 `)
 }
-controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (!(hero.isHittingTile(CollisionDirection.Bottom))) {
-        hero.vy += 80
-    }
-})
 function animateRun () {
     mainRunLeft = animation.createAnimation(ActionKind.RunningLeft, 100)
     animation.attachAnimation(hero, mainRunLeft)
@@ -950,9 +945,6 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Goal, function (sprite, otherSpr
         game.over(true, effects.confetti)
     }
 })
-function clearGame () {
-	
-}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Bumper, function (sprite, otherSprite) {
     if (sprite.vy > 0 && !(sprite.isHittingTile(CollisionDirection.Bottom)) || sprite.y < otherSprite.top) {
         otherSprite.destroy(effects.ashes, 250)
@@ -970,61 +962,6 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Bumper, function (sprite, otherS
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     attemptJump()
 })
-function createEnemies () {
-    // enemy that moves back and forth
-    for (let value of scene.getTilesByType(2)) {
-        bumper = sprites.create(img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . f f f f f f . . . . . . 
-. . . f 7 2 7 7 7 2 f . . . . . 
-. . f 7 7 7 2 7 2 7 7 f . . . . 
-. . f 7 7 7 7 7 7 7 7 7 f . . . 
-. f 7 7 7 2 7 7 7 2 7 7 f . . . 
-. f 7 7 7 2 7 7 7 2 7 7 7 f . . 
-. f 7 7 7 7 7 7 7 7 7 7 7 7 f . 
-. f 7 7 7 7 2 2 2 7 7 7 7 7 f . 
-. . f 7 7 2 2 7 2 2 7 7 7 7 f . 
-. . f 7 7 2 7 7 7 2 2 7 7 7 f . 
-. . . f 7 7 7 7 7 7 7 7 7 7 f . 
-. . . . f f 7 7 7 7 7 7 7 f . . 
-. . . . . . f f f f f f f . . . 
-. . . . . . . . . . . . . . . . 
-`, SpriteKind.Bumper)
-        value.place(bumper)
-        bumper.ay = gravity
-        if (Math.percentChance(50)) {
-            bumper.vx = Math.randomRange(30, 60)
-        } else {
-            bumper.vx = Math.randomRange(-60, -30)
-        }
-    }
-    // enemy that flies at player
-    for (let value2 of scene.getTilesByType(3)) {
-        let flierIdle: animation.Animation = null
-        flier = sprites.create(img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . f f f f f f f . . . . 
-. . . . f 4 4 4 4 4 4 4 f . . . 
-. . . f 4 5 5 4 4 4 5 5 4 f . . 
-. f . f 4 4 4 5 4 5 4 4 4 f . f 
-. f f 4 4 4 4 4 4 4 4 4 4 4 f f 
-. f 4 4 4 4 4 5 4 5 4 4 4 4 4 f 
-. f 4 4 4 4 4 5 4 5 4 4 4 4 4 f 
-. f f 4 4 4 4 4 4 4 4 4 4 4 f f 
-. . . f 4 4 5 5 5 5 5 4 4 f . . 
-. . . . f 4 5 4 4 4 5 4 f . . . 
-. . . . . f f f f f f f . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-`, SpriteKind.Flier)
-        value2.place(flier)
-        animation.attachAnimation(flier, flierFlying)
-        animation.attachAnimation(flier, flierIdle)
-    }
-}
 function initializeHeroAnimations () {
     animateRun()
     animateIdle()
@@ -1058,14 +995,76 @@ function initializeLevel (level: number) {
         value7.destroy()
     }
     scene.setTileMap(levelMaps[level])
-    effects.clouds.startScreenEffect()
+    // enemy that moves back and forth
+    for (let value of scene.getTilesByType(2)) {
+        bumper = sprites.create(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . f f f f f f . . . . . . 
+. . . f 7 2 7 7 7 2 f . . . . . 
+. . f 7 7 7 2 7 2 7 7 f . . . . 
+. . f 7 7 7 7 7 7 7 7 7 f . . . 
+. f 7 7 7 2 7 7 7 2 7 7 f . . . 
+. f 7 7 7 2 7 7 7 2 7 7 7 f . . 
+. f 7 7 7 7 7 7 7 7 7 7 7 7 f . 
+. f 7 7 7 7 2 2 2 7 7 7 7 7 f . 
+. . f 7 7 2 2 7 2 2 7 7 7 7 f . 
+. . f 7 7 2 7 7 7 2 2 7 7 7 f . 
+. . . f 7 7 7 7 7 7 7 7 7 7 f . 
+. . . . f f 7 7 7 7 7 7 7 f . . 
+. . . . . . f f f f f f f . . . 
+. . . . . . . . . . . . . . . . 
+`, SpriteKind.Bumper)
+        value.place(bumper)
+        bumper.ay = gravity
+        if (Math.percentChance(50)) {
+            bumper.vx = Math.randomRange(30, 60)
+        } else {
+            bumper.vx = Math.randomRange(-60, -30)
+        }
+    }
+    // enemy that flies at player
+    for (let value2 of scene.getTilesByType(3)) {
+        flier = sprites.create(img`
+. . . . . . . . . . . . . . e e e e e e e . . . . . . . . . . . 
+. . . . . . . . . . . . e e 4 5 5 6 6 2 e 2 e . . . . . . . . . 
+. . . . . . . . . . e e 4 5 5 5 6 7 2 3 e 2 6 8 8 . . . . . . . 
+. . . . . . . . . e 4 6 7 7 6 6 7 7 2 3 2 e 7 7 7 6 6 8 . . . . 
+. . . . . . . . e 4 6 7 4 5 5 5 4 7 7 2 2 2 7 7 7 6 7 7 8 . . . 
+. . . . . . . 4 4 4 8 7 4 4 4 4 4 7 7 7 7 6 6 7 7 7 6 7 8 . . . 
+. . . . . . 4 5 2 2 e 7 7 7 7 7 7 6 7 7 7 7 6 6 6 7 6 6 6 8 . . 
+. . . . . 4 5 2 3 2 2 7 7 6 6 7 2 2 e 6 6 6 e e e e e 8 8 8 . . 
+. . . . 4 5 5 2 3 2 e 7 6 6 7 2 3 2 2 e 4 5 5 5 d d d d 4 8 . . 
+. . . 4 4 5 6 7 7 7 7 5 5 4 6 2 3 e 4 5 5 d d d d d d d d d 4 . 
+. . . e 6 6 7 7 4 5 5 4 4 7 7 e 4 5 5 d d d d 5 5 5 5 4 d d 4 4 
+. . e 4 6 7 7 7 4 4 4 6 7 7 e 5 5 d d 5 5 5 5 5 d 5 5 d d d d 4 
+. . e 5 6 6 8 6 7 7 6 6 6 e 5 d d 5 5 5 5 5 5 5 5 5 5 5 5 d d e 
+. e 4 5 5 4 4 e 8 7 7 6 e 5 d 5 5 5 5 5 4 5 5 5 5 5 5 5 5 5 d e 
+. e 5 5 4 e e e e 6 6 e 5 d 5 5 5 5 d 5 5 5 5 5 d d d d 5 4 d e 
+. e 5 5 e e 4 4 f e e 5 d 5 d 5 5 5 5 5 5 d 5 d 5 d d d d d d e 
+e 4 5 4 e e e e f e 4 5 d 5 5 5 5 5 5 5 5 5 5 5 d d 4 d d d e . 
+e 5 e 4 e e f f f e 5 d 5 5 5 5 5 5 5 5 d 5 5 5 5 d d d d e . . 
+e 5 e e 4 e e f f 4 5 d 5 5 5 5 5 5 5 5 5 5 5 5 d d d d e . . . 
+e 5 e e e e f f e 5 d 5 5 d 5 5 5 d 5 5 5 5 d 5 d d d e . . . . 
+e 5 f f e f e e e 5 d 5 5 5 4 5 5 5 5 5 5 5 d d d 4 e . . . . . 
+e 5 f f f f f f e 5 4 5 5 5 5 5 5 5 d 5 d 4 d d e e . . . . . . 
+e 5 4 e f e f f 4 5 d 5 5 d 5 5 5 5 5 d d d d e . . . . . . . . 
+e 5 e e e f f e 5 d d 5 5 5 5 5 4 5 d d d e e . . . . . . . . . 
+e 4 e e e f f f 5 d 5 5 5 5 d 5 5 d d d e . . . . . . . . . . . 
+e 4 e f e f f f 5 d 5 d 5 5 5 5 5 d 4 e . . . . . . . . . . . . 
+. e 4 e f f f e 5 d 5 5 5 5 5 5 d e e . . . . . . . . . . . . . 
+. e 5 4 e e e e 5 d 5 4 5 d d 4 e . . . . . . . . . . . . . . . 
+. . e 5 5 4 e e 5 d d d d d e e . . . . . . . . . . . . . . . . 
+. . . e e 5 5 4 4 d d d e e . . . . . . . . . . . . . . . . . . 
+. . . . . e e e e e e e . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+`, SpriteKind.Flier)
+        value2.place(flier)
+        animation.attachAnimation(flier, flierFlying)
+    }
     scene.placeOnRandomTile(hero, 1)
-    createEnemies()
     spawnGoals()
 }
-controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    attemptJump()
-})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Flier, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
     sprite.say("Ow!", invincibilityPeriod * 1.5)
@@ -1161,7 +1160,7 @@ gravity = 9.81 * pixelsToMeters
 levelMaps = [img`
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . 5 . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . 5 . . . . . . . . . 3 . . . . . . . . . . . . . 
 . . . . 5 . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . 1 . . . . . . . . . 5 . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . 7 . . 5 . 7 . . . . . . . . . . . . . . . . . 7 
