@@ -23,47 +23,6 @@ function initializeAnimations () {
     initializeCoinAnimation()
     initializeFlierAnimations()
 }
-function giveIntroduction () {
-    game.setDialogFrame(img`
-. 2 2 2 2 2 2 2 2 2 2 2 2 2 . . 
-2 2 1 1 1 1 1 1 1 1 1 1 1 2 2 . 
-2 1 1 2 2 2 2 2 2 2 2 2 1 1 2 . 
-2 1 2 2 1 1 1 1 1 1 1 2 2 1 2 . 
-2 1 2 1 1 1 1 1 1 1 1 1 2 1 2 . 
-2 1 2 1 1 1 1 1 1 1 1 1 2 1 2 . 
-2 1 2 1 1 1 1 1 1 1 1 1 2 1 2 . 
-2 1 2 1 1 1 1 1 1 1 1 1 2 1 2 . 
-2 1 2 1 1 1 1 1 1 1 1 1 2 1 2 . 
-2 1 2 1 1 1 1 1 1 1 1 1 2 1 2 . 
-2 1 2 1 1 1 1 1 1 1 1 1 2 1 2 . 
-2 1 2 2 1 1 1 1 1 1 1 2 2 1 2 . 
-2 1 1 2 2 2 2 2 2 2 2 2 1 1 2 . 
-2 2 1 1 1 1 1 1 1 1 1 1 1 2 2 . 
-. 2 2 2 2 2 2 2 2 2 2 2 2 2 . . 
-. . . . . . . . . . . . . . . . 
-`)
-    game.setDialogCursor(img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . f f f f . . . . . . 
-. . . . f f 5 5 5 5 f f . . . . 
-. . . . f 5 5 5 5 5 5 f . . . . 
-. . . f 5 5 5 4 4 5 5 5 f . . . 
-. . . f 5 5 5 4 4 5 5 5 f . . . 
-. . . f 5 5 5 4 4 5 5 5 f . . . 
-. . . f 5 5 5 4 4 5 5 5 f . . . 
-. . . . f 5 5 5 5 5 5 f . . . . 
-. . . . f f 5 5 5 5 f f . . . . 
-. . . . . . f f f f . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-`)
-    showInstruction("Move with the left and right buttons.")
-    showInstruction("Jump with the up or A button.")
-    showInstruction("Double jump by pressing jump again.")
-}
 function initializeCoinAnimation () {
     coinAnimation = animation.createAnimation(ActionKind.Idle, 200)
     coinAnimation.addAnimationFrame(img`
@@ -88,24 +47,6 @@ function initializeCoinAnimation () {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
-. . . . f f f f f f . . . . . . 
-. . . f f 5 f 5 5 5 f . . . . . 
-. . . f 5 f 5 5 5 5 5 f . . . . 
-. . f 5 f 5 5 5 4 5 5 f . . . . 
-. . f 5 f 5 5 5 4 4 5 5 f . . . 
-. . f 5 f 5 5 5 4 4 5 5 f . . . 
-. . f 5 f 5 5 5 4 5 5 f . . . . 
-. . . f 5 f 5 5 5 5 5 f . . . . 
-. . . . f 5 f 5 5 5 f . . . . . 
-. . . . f f f f f f . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-`)
-    coinAnimation.addAnimationFrame(img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
 . . . . . f f f f f . . . . . . 
 . . . . f f 5 f 5 f f . . . . . 
 . . . f f 5 f 5 5 5 f . . . . . 
@@ -134,42 +75,6 @@ function initializeCoinAnimation () {
 . . . . . f 5 f 5 f f . . . . . 
 . . . . . f f f f f . . . . . . 
 . . . . . . f f f f . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-`)
-    coinAnimation.addAnimationFrame(img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . f f f f . . . . . . 
-. . . . . . f f f f f . . . . . 
-. . . . . f f 5 f 5 f . . . . . 
-. . . . . f 5 5 f 5 f . . . . . 
-. . . . . f 5 5 f 5 f . . . . . 
-. . . . . f 5 5 f 5 f . . . . . 
-. . . . . f 5 5 f 5 f . . . . . 
-. . . . . f f 5 f 5 f . . . . . 
-. . . . . . f f f f f . . . . . 
-. . . . . . f f f f . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-`)
-    coinAnimation.addAnimationFrame(img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . f f f f f . . . . . 
-. . . . . f f 5 f 5 f f . . . . 
-. . . . . f 5 5 5 f 5 f f . . . 
-. . . . f f 5 5 5 5 f 5 f . . . 
-. . . . f 5 5 4 5 5 f 5 f . . . 
-. . . . f 5 5 4 5 5 f 5 f . . . 
-. . . . f f 5 5 5 5 f 5 f . . . 
-. . . . . f 5 5 5 f 5 f f . . . 
-. . . . . f f 5 f 5 f f . . . . 
-. . . . . . f f f f f . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -1035,48 +940,6 @@ function animateJumps () {
 `)
     }
 }
-function animateCrouch () {
-    mainCrouchLeft = animation.createAnimation(ActionKind.CrouchLeft, 100)
-    animation.attachAnimation(hero, mainCrouchLeft)
-    mainCrouchLeft.addAnimationFrame(img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . f f f f f f f f f f . . . 
-. . f e e e e e e e e e e f . . 
-. f e e e e e e e e e e e e f . 
-. f d d d d d d d d d e e d f . 
-. f d d f d d d d f d d e d f . 
-. f d d f d d d d f d d d e f . 
-. f d d f d d d d f d d d f . . 
-. f d d d d d d d d d d d f . . 
-. f a c c c c c c c c a b f . . 
-. f d c c c c c c c c c d d f . 
-f d d f f f b b f f f f d d f . 
-. f f a a a a a a a a a b f . . 
-. . . f f f f . f f f f f . . . 
-`)
-    mainCrouchRight = animation.createAnimation(ActionKind.CrouchRight, 100)
-    animation.attachAnimation(hero, mainCrouchRight)
-    mainCrouchRight.addAnimationFrame(img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . f f f f f f f f f f . . . 
-. . f e e e e e e e e e e f . . 
-. f e e e e e e e e e e e e f . 
-. f d e e d d d d d d d d d f . 
-. f d e d d f d d d d f d d f . 
-. f e d d d f d d d d f d d f . 
-. . f d d d f d d d d f d d f . 
-. . f d d d d d d d d d d d f . 
-. . f b a c c c c c c c c a f . 
-. f d d c c c c c c c c c d f . 
-. f d d f f f f b b f f f d d f 
-. . f b a a a a a a a a a f f . 
-. . . f f f f f . f f f f . . . 
-`)
-}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Goal, function (sprite, otherSprite) {
     info.changeLifeBy(1)
     currentLevel += 1
@@ -1088,18 +951,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Goal, function (sprite, otherSpr
     }
 })
 function clearGame () {
-    for (let value4 of sprites.allOfKind(SpriteKind.Bumper)) {
-        value4.destroy()
-    }
-    for (let value5 of sprites.allOfKind(SpriteKind.Coin)) {
-        value5.destroy()
-    }
-    for (let value6 of sprites.allOfKind(SpriteKind.Goal)) {
-        value6.destroy()
-    }
-    for (let value7 of sprites.allOfKind(SpriteKind.Flier)) {
-        value7.destroy()
-    }
+	
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Bumper, function (sprite, otherSprite) {
     if (sprite.vy > 0 && !(sprite.isHittingTile(CollisionDirection.Bottom)) || sprite.y < otherSprite.top) {
@@ -1173,15 +1025,9 @@ function createEnemies () {
         animation.attachAnimation(flier, flierIdle)
     }
 }
-function showInstruction (text: string) {
-    game.showLongText(text, DialogLayout.Bottom)
-    music.baDing.play()
-    info.changeScoreBy(1)
-}
 function initializeHeroAnimations () {
     animateRun()
     animateIdle()
-    animateCrouch()
     animateJumps()
 }
 function createPlayer (player2: Sprite) {
@@ -1199,7 +1045,18 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSpr
     music.baDing.play()
 })
 function initializeLevel (level: number) {
-    clearGame()
+    for (let value4 of sprites.allOfKind(SpriteKind.Bumper)) {
+        value4.destroy()
+    }
+    for (let value5 of sprites.allOfKind(SpriteKind.Coin)) {
+        value5.destroy()
+    }
+    for (let value6 of sprites.allOfKind(SpriteKind.Goal)) {
+        value6.destroy()
+    }
+    for (let value7 of sprites.allOfKind(SpriteKind.Flier)) {
+        value7.destroy()
+    }
     scene.setTileMap(levelMaps[level])
     effects.clouds.startScreenEffect()
     scene.placeOnRandomTile(hero, 1)
@@ -1262,8 +1119,6 @@ let heroFacingLeft = false
 let coin: Sprite = null
 let flier: Sprite = null
 let bumper: Sprite = null
-let mainCrouchRight: animation.Animation = null
-let mainCrouchLeft: animation.Animation = null
 let mainJumpRight: animation.Animation = null
 let mainJumpLeft: animation.Animation = null
 let mainRunRight: animation.Animation = null
